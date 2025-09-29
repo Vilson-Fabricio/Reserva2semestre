@@ -18,6 +18,10 @@
   },
   "homepage": "https://github.com/Vilson-Fabricio/Reserva2semestre#readme",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "path": "^0.12.7",
     "prisma": "^6.16.2"
   }
 }
