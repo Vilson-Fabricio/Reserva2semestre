@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const usuarioController = require('../controllers/usuarioControllers');
+const usuarioController = require('../Controller/usuarioController');
 
 router.post("/cadastrar", usuarioController.cadastrar);
 
