@@ -6,7 +6,7 @@ describe("Testes do UsuarioController", () => {
   it("deve cadastrar um usuário", async () => {
     const res = await request(app)
       .post("/usuario/cadastrar")
-      .send({ nome: "Vilson", email: "teste@teste.com", senha: "1234" });
+      .send({ nome: "Vilso", email: "teste@teste.co", senha: "1234" });
 
     expect(res.status).toBe(200);
     expect(res.body).toHaveProperty("usuarioId");

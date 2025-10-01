@@ -18,7 +18,7 @@ class usuarioController {
      
 
 
-        const usuario = await client.Usuario.create({
+        const usuario = await client.usuario.create({
             data: {
                 nome,
                 email,
