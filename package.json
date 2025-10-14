@@ -20,13 +20,19 @@
   "homepage": "https://github.com/Vilson-Fabricio/Reserva2semestre#readme",
   "dependencies": {
     "@prisma/client": "^6.16.2",
+    "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.2",
+    "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "express-handlebars": "^8.0.3",
     "jsonwebtoken": "^9.0.2",
+    "migrate": "^2.1.0",
     "path": "^0.12.7",
     "prisma": "^6.16.2",
-    "superjest": "^0.4.0"
+    "sequelize": "^6.37.7",
+    "sqlite3": "^5.1.7",
+    "superjest": "^0.4.0",
+    "test": "^3.3.0"
   },
   "devDependencies": {
     "jest": "^30.2.0",
