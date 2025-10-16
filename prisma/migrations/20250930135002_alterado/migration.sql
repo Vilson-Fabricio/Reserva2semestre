@@ -11,10 +11,10 @@ CREATE TABLE "new_Usuario" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "nome" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "senha" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
     "isAdmin" BOOLEAN NOT NULL DEFAULT false
 );
-INSERT INTO "new_Usuario" ("email", "id", "nome", "senha") SELECT "email", "id", "nome", "senha" FROM "Usuario";
+INSERT INTO "new_Usuario" ("email", "id", "nome", "password") SELECT "email", "id", "nome", "password" FROM "Usuario";
 DROP TABLE "Usuario";
 ALTER TABLE "new_Usuario" RENAME TO "Usuario";
 CREATE UNIQUE INDEX "Usuario_email_key" ON "Usuario"("email");
