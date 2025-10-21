@@ -13,7 +13,7 @@ app.set("view engine", "handlebars");
 
 // Rotas
 app.get('/', (req, res) => {
-    res.render("home");
+    res.render("/home");
 });
 
 app.use("/usuario", usuarioRoutes);
