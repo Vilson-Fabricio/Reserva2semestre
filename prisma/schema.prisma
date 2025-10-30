@@ -14,3 +14,8 @@ model Usuario {
   password   String
   isAdmin Boolean @default(false)
 }
+
+model Reserva {
+  id Int @id @default(autoincrement())
+  Usuario_id Int
+}
