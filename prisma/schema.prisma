@@ -17,6 +17,21 @@ model Usuario{
 id Int @id @default(autoincrement())
 nome String
 email String @unique
-senha String
+password String? //
 isAdmin Boolean @default(false)
+}
+
+model Reserva{
+  id Int @id @default(autoincrement())
+  usuario_id Int
+  mesa_id Int
+  data DateTime //
+  n_pessoas Int
+  status Boolean
+}
+
+model Mesa{
+  id Int @id @default(autoincrement())
+  codigo String
+  n_lugares Int
 }
