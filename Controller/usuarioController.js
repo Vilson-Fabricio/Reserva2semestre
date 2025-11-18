@@ -115,6 +115,7 @@ class usuarioController {
             msg: "Acesso negado! Você não é um adminstrador!",
             });
         }
+        ....
         next();
     }
 }
