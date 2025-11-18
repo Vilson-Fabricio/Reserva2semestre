@@ -4,6 +4,7 @@ const bcryptjs = require("bcryptjs");
 
 const { PrismaClient } = require("@prisma/client");
 const { error } = require("console");
+const { where } = require("sequelize");
 const client = new PrismaClient();
 
 class usuarioController {
@@ -99,15 +100,18 @@ class usuarioController {
         });
         }    
     }
-    static async verificaIsAdmin(req, res, next){
+    static async buscarTodosUsuarios(req, res, next){
         if(!req.usuarioId){
             res.json({
             msg: "Você não está autenticado!",
         });
         }
-        const usuario = await client.usuario.findUnique({
+        const usuario = await client.usuario.findMany({
             where: {
-                id: req.usuarioId,
+                id: parseInt(req.usuarioId),
+                nome: true,
+                email: true,
+                isAdmin: true,
             },
         });
         if(!usuario.isAdmin){
@@ -115,9 +119,38 @@ class usuarioController {
             msg: "Acesso negado! Você não é um adminstrador!",
             });
         }
-        ....
+        
         next();
+
     }
+    static async atualizarPerfil(req, res) {
+        const usuarioId = req.usuarioId;
+        const { nome, email } = req.body;
+
+        const usuarioAtualizado = await client.usuario.update({
+            where: {
+                id: parseInt(usuarioId),
+            },
+            data: {
+                nome,
+                email,
+            },
+        });
+
+        res.json({
+            msg: "Perfil atualizado com sucesso",
+            usuario: usuarioAtualizado,
+        });
+    }
+    }
+    async function buscarUsuarios() {
+  try {
+    const usuarios = await prisma.usuario.findMany();
+    console.log();
+    return usuarios;
+  } catch (error) {
+    console.error("Nenhum usuario localizado", error);
+  } 
 }
 
 module.exports = usuarioController
