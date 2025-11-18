@@ -3,28 +3,46 @@ const jwt = require("jsonwebtoken")
 const bcryptjs = require("bcryptjs");
 
 const { PrismaClient } = require("@prisma/client");
+const { error } = require("console");
 const client = new PrismaClient();
 
 class usuarioController {
     static async cadastrar(req, res) {
-        
+        try{
         console.log(req.body);
 
-        const { nome, email, senha } = req.body;
+        const { nome, email, password } = req.body;
 
+        if (!nome || !email || !password) {
+            return res.status(400).json({msg: "Todos os campos são obrigatórios"})
+        }
+        const userExist = await client.usuario.findUnique({
+            where: {email},
+        })
+        if (userExist) {
+            return res.status(400).json({msg: "Email ja Cadastrado"})
+        }
         const salt = bcryptjs.genSaltSync(8);
-        const hashSenha = bcryptjs.hashSync(senha, salt);
+        const hashPassword = bcryptjs.hashSync(password, salt);
 
-     
-
-
-        const usuario = await client.Usuario.create({
+        const usuario = await client.usuario.create({
             data: {
                 nome,
                 email,
-                senha: hashSenha,
+                password: hashPassword,
             },
         });
+        return res.status(200).json({
+            usuarioId: usuario.id,
+            msg: "Usuario Cadastrado com Sucesso"
+        })
+
+        } catch (erro) {
+            console.error("Erro ao Cadastrar Usuario", error);
+            return res.status(400).json({msg: "Erro na Aplicação"})
+        }
+
+
 
         res.json({
             usuarioId: usuario.id,
@@ -33,7 +51,7 @@ class usuarioController {
     }
 
     static async login(req, res) {
-        const { email, senha } = req.body;
+        const { email, password } = req.body;
 
         const usuario = await client.usuario.findUnique({
             where: {
@@ -47,9 +65,9 @@ class usuarioController {
             });
         }
 
-        const senhaCorreta = bcryptjs.compareSync(senha, usuario.senha);
+        const passwordCorreta = bcryptjs.compareSync(password, usuario.password);
 
-        if (!senhaCorreta) {
+        if (!passwordCorreta) {
             return res.json({
                 msg: "Senha incorreta",
             });

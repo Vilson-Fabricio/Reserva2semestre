@@ -6,16 +6,16 @@ describe("Testes do UsuarioController", () => {
   it("deve cadastrar um usuário", async () => {
     const res = await request(app)
       .post("/usuario/cadastrar")
-      .send({ nome: "Vilson", email: "teste@teste.com", senha: "1234" });
+      .send({ nome: "Vilso", email: "teste@teste.com", password: "1234" });
 
-    expect(res.status).toBe(200);
+    expect(res.statusCode).toBe(200);
     expect(res.body).toHaveProperty("usuarioId");
   });
 
   it("deve logar com usuário válido", async () => {
     const res = await request(app)
       .post("/usuario/login")
-      .send({ email: "teste@teste.com", senha: "1234" });
+      .send({ email: "teste@teste.com", password: "1234" });
 
     expect(res.status).toBe(200);
     expect(res.body).toHaveProperty("token");
@@ -25,7 +25,7 @@ describe("Testes do UsuarioController", () => {
   it("não deve logar com senha errada", async () => {
     const res = await request(app)
       .post("/usuario/login")
-      .send({ email: "teste@teste.com", senha: "errada" });
+      .send({ email: "teste@teste.com", password: "errada" });
 
     expect(res.body.msg).toBe("Senha incorreta");
   });
